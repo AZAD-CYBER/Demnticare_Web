@@ -35,22 +35,18 @@ const DoctorsZone = () => {
   const year = initialDate.getFullYear();
   const fullDate = month + 1 + "/" + day + "/" + year;
 
-  const handleChange = (event) => {
-    let action = event.target.value;
-    const actions = { action: action, key };
+  const handleChange = (event, appointmentKey) => {
+    let selectedAction = event.target.value;
     const appointmentsRef = db.collection("appointments");
     appointmentsRef
-      .doc(key)
-      .update({ action: action })
-      .then(() => {
-        setAction(actions);
-        console.log(actions);
-      })
+      .doc(appointmentKey)
+      .update({ action: selectedAction })
       .catch((error) => {
         console.error(error);
       });
   };
-
+  
+  
   useEffect(() => {
     const appointmentsRef = db.collection("appointments");
     appointmentsRef.onSnapshot((snapshot) => {
@@ -106,17 +102,17 @@ const DoctorsZone = () => {
                           onMouseOver={() => setKey(appointment.key)}
                           align="right"
                         >
-                          <Select
-                            style={{ color: "white" }}
-                            className="actionSelect"
-                            value={appointment.action}
-                            onChange={handleChange}
-                          >
-                            <MenuItem value={"notVisited"}>
-                              Not Visited
-                            </MenuItem>
-                            <MenuItem value={"visited"}>Visited</MenuItem>
-                          </Select>
+                         <Select
+  style={{ color: "white" }}
+  className="actionSelect"
+  value={appointment.action}
+  defaultValue={appointment.action}
+  onChange={(event) => handleChange(event, appointment.key)}
+>
+  <MenuItem value={"notVisited"}>Not Visited</MenuItem>
+  <MenuItem value={"visited"}>Visited</MenuItem>
+</Select>
+
                         </TableCell>
                       </TableRow>
                     ))}

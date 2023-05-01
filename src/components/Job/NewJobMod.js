@@ -99,7 +99,7 @@ export default function NewJobModal(props) {
     <Dialog open={props.newJobModal} fullWidth>
       <DialogTitle>
         <Box display="flex" justifyContent="space-between" alignItems="center">
-          Post Job
+          Post 
           <IconButton onClick={closeModal}>
             <CloseIcon />
           </IconButton>

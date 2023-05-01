@@ -40,14 +40,15 @@ const Dashboard = () => {
 
   const handleChange = (event) => {
     let action1 = event.target.value;
-    const appointmentRef = db.collection("appointments").doc(key);
+    const appointmentRef = db.collection("appointments");
     appointmentRef.update({ action1 })
       .then(() => {
-        console.log("Document successfully updated!");
+        console.log(" successfully updated!");
       })
-      .catch((error) => {
-        console.error("Error updating document: ", error);
-      });
+      .catch((error) => { 
+
+        console.error("Error  : ", error,key);
+      }); 
   };
   const pendingAppointment = appointment.filter(
     (pa) => pa.action1 === "pending"

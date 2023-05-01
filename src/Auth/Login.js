@@ -3,14 +3,16 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [userType, setUserType] = useState("doctor"); // add userType state variable
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(isLoggedIn)
+  console.log(isLoggedIn);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,20 +41,31 @@ export default function Login() {
           // localStorage.setItem('token', JSON.stringify({ access_token: 'your_token_here' }));
           localStorage.setItem("isLoggedIn", JSON.stringify(true));
           localStorage.setItem("token", JSON.stringify(data.token));
+          localStorage.setItem("type", userType);
           setIsLoggedIn(false);
           navigate("/");
+          window.location.reload();
         }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("token");
+    localStorage.removeItem("type");
     setIsLoggedIn(false);
     navigate("/login");
   };
+
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
+  
+     // set the userType to the selected value
+  };
+
   return (
     <div style={{ padding: "30px" }}>
       <center>
@@ -89,51 +102,51 @@ export default function Login() {
                 <Form.Control
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                />
-              </Form.Group>
-              <div style={{ padding: "10px", textAlign: "center" }}>
-                <Button style={{ background: "#009A75" }} type="submit">
-                  Login
-                </Button>
-              </div>
-              {/* <p>password</p> */}
-            </Form>
-          )}
-        </Col>
-      </Row>
-      {showAlert && (
-        <Alert
-          variant="danger"
-          onClose={() => setShowAlert(false)}
-          dismissible
-        >
-          <Alert.Heading>Error</Alert.Heading>
-          <p>{alertMessage}</p>
-        </Alert>
-      )}
-
-      {!isLoggedIn && (
-        <p
-          style={{
-            textAlign: "center",
-            paddingTop: "10px",
-          }}
-        >
-          <Link
-            to="/Register"
+                  onChange={(e) => setPassword
+                    (e.target.value)}
+                    placeholder="Password"
+                    />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicUserType">
+                    <Form.Label>User Type</Form.Label>
+                    <Form.Control as="select" onChange={handleUserTypeChange}>
+                    <option value="doctor">Doctor</option>
+                    <option value="patient">Patient</option>
+                 
+                    </Form.Control>
+                    </Form.Group>
+                    <center>
+              <Button style={{ background: "#009A75",margin:"20px" }} type="submit">
+                Login
+              </Button>
+            </center>
+                    <p
             style={{
-              color: "black",
-              textDecoration: "none",
               textAlign: "center",
+              paddingTop: "10px",
             }}
           >
-            Don't have an account?{" "}
-            <span style={{ color: "#009A75" }}>Register</span>
-          </Link>
-        </p>
-      )}
-    </div>
-  );
-}
+            <Link
+              to="/Register"
+              style={{
+                color: "black",
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+             Don't have an account?{" "}
+              <span style={{ color: "#009A75" }}>Signup</span>
+            </Link>
+          </p>
+                    {showAlert && (
+                    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                    {alertMessage}
+                    </Alert>
+                    )}
+                    </Form>
+                    )}
+                    </Col>
+                    </Row>
+                    </div>
+                    );
+                    }

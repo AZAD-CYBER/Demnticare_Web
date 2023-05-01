@@ -5,8 +5,9 @@ import "./NavBar.css";
 
 function Navbar() {
   const [click, setClick] = useState(false);
-
+  const type = localStorage.getItem("type");
   const handleClick = () => setClick(!click);
+ 
   return (
     <>
       <HeaderNav />
@@ -46,17 +47,20 @@ function Navbar() {
              Caregiver
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/main-page"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-               Appointment
-              </NavLink>
-            </li>
+           
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/main-page"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Appointment
+                </NavLink>
+              </li>
+           
+          
             <li className="nav-item">
               <NavLink
                 exact

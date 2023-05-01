@@ -32,6 +32,7 @@ const MainPage = () => {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
+  const type = localStorage.getItem("type");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,9 +65,9 @@ const MainPage = () => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link className="navLink" href="/dashboard">
+            {type=== "doctor"?  ( <Nav.Link className="navLink" href="/dashboard">
                 Doctors Dashboard
-              </Nav.Link>
+              </Nav.Link> ):null }
             </Nav.Item>
             <Nav.Item>
               <Nav.Link className="navLink" href="/contactUs">

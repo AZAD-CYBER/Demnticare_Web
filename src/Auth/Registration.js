@@ -27,7 +27,7 @@ function Registration() {
           method: "POST",
             headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "https://643e818ec9c2244cf3230842--magical-hummingbird-ae5667.netlify.app"
+         
         },
           body: JSON.stringify({
             email,
@@ -54,11 +54,11 @@ function Registration() {
             console.log(
               "User already exists, please login or choose another email"
             );
-            setShowAlert(true);
+          
             break;
           case 201:
             // Handle Success
-
+            setShowAlert(true);
             setAlertMessage(" Successful registeration");
             console.log("Successful registeration");
             break;

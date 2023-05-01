@@ -213,7 +213,7 @@ function Quiz() {
           ) : (
             <div className="question-card">
               {}
-              <h2>
+              <h2 style={{color:"black"}}>
                 Question: {currentQuestion + 1} out of {questions.length}
               </h2>
               <h3 className="question-text">
